@@ -1,6 +1,6 @@
-# CareLoop: AI + Human-in-the-Loop Health Assessment
+# MoM: AI + Human-in-the-Loop Health Assessment
 
-CareLoop is an interactive health assistant that lets patients report symptoms visually (by clicking body parts) and describe issues. An AI agent analyzes the inputs, asks clarifying questions, and forms a preliminary hypothesis — which is always **validated by a human doctor** before being shared back with the patient. This ensures trust, safety, and effective use of AI in healthcare.
+MoM is an interactive health assistant that lets patients report symptoms visually (by clicking body parts) and describe issues. An AI agent analyzes the inputs, asks clarifying questions, and forms a preliminary hypothesis — which is always **validated by a human doctor** before being shared back with the patient. This ensures trust, safety, and effective use of AI in healthcare.
 
 ---
 
