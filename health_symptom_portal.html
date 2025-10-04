@@ -115,6 +115,25 @@
             opacity: 1 !important;
         }
 
+        .clickable-area {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid transparent;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .clickable-area:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border: 2px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .clickable-area.selected {
+            background: rgba(102, 126, 234, 0.4);
+            border: 2px solid #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -295,6 +314,62 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .markdown-content {
+            line-height: 1.6;
+        }
+
+        .markdown-content h1 {
+            font-size: 18px;
+            color: #333;
+            margin: 15px 0 10px 0;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+
+        .markdown-content h2 {
+            font-size: 16px;
+            color: #444;
+            margin: 12px 0 8px 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 3px;
+        }
+
+        .markdown-content h3 {
+            font-size: 14px;
+            color: #555;
+            margin: 10px 0 6px 0;
+            font-weight: 600;
+        }
+
+        .markdown-content h4 {
+            font-size: 13px;
+            color: #666;
+            margin: 8px 0 5px 0;
+            font-weight: 600;
+        }
+
+        .markdown-content h5 {
+            font-size: 12px;
+            color: #666;
+            margin: 6px 0 4px 0;
+            font-weight: 600;
+        }
+
+        .markdown-content ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .markdown-content li {
+            margin: 4px 0;
+            color: #555;
+        }
+
+        .markdown-content strong {
+            color: #333;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -319,161 +394,270 @@
                 <div class="card">
                     <h2>Select Affected Body Area</h2>
                     <div class="anatomy-container">
-                        <svg width="300" height="580" viewBox="0 0 300 580">
-                            <defs>
-                                <linearGradient id="skinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#ffd5b5;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#f4c5a0;stop-opacity:1" />
-                                </linearGradient>
-                                <linearGradient id="muscleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#d4a88c;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#e6b896;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#d4a88c;stop-opacity:1" />
-                                </linearGradient>
-                                <radialGradient id="jointGradient">
-                                    <stop offset="0%" style="stop-color:#f4c5a0;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#d4a88c;stop-opacity:1" />
-                                </radialGradient>
-                            </defs>
-
+                        <div style="position: relative; display: inline-block;">
+                            <img src="FrontBody.png" alt="Human Anatomy" style="max-width: 100%; height: auto; max-height: 550px;">
+                            
+                            <!-- Invisible clickable areas over the anatomy image -->
                             <!-- Head -->
-                            <g class="body-part" data-part="head" onclick="selectBodyPart('head')" style="opacity:0.9">
-                                <ellipse cx="150" cy="50" rx="42" ry="48" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <ellipse cx="138" cy="45" rx="6" ry="8" fill="#8b6f5c" opacity="0.3"/>
-                                <ellipse cx="162" cy="45" rx="6" ry="8" fill="#8b6f5c" opacity="0.3"/>
-                                <path d="M 135 62 Q 150 68 165 62" stroke="#c99b7a" stroke-width="1.5" fill="none"/>
-                                <text x="150" y="95" text-anchor="middle" font-size="11" fill="#666" font-weight="500">Head</text>
-                            </g>
-
+                            <div class="body-part clickable-area" data-part="head" onclick="selectBodyPart('head')" 
+                                 style="position: absolute; top: 8%; left: 42%; width: 16%; height: 12%; cursor: pointer;" 
+                                 title="Head"></div>
+                            
                             <!-- Neck -->
-                            <g class="body-part" data-part="neck" onclick="selectBodyPart('neck')" style="opacity:0.9">
-                                <path d="M 130 90 L 125 115 L 175 115 L 170 90 Z" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <line x1="140" y1="95" x2="138" y2="115" stroke="#d4a88c" stroke-width="1.5" opacity="0.4"/>
-                                <line x1="160" y1="95" x2="162" y2="115" stroke="#d4a88c" stroke-width="1.5" opacity="0.4"/>
-                            </g>
-
+                            <div class="body-part clickable-area" data-part="neck" onclick="selectBodyPart('neck')" 
+                                 style="position: absolute; top: 20%; left: 46%; width: 8%; height: 6%; cursor: pointer;" 
+                                 title="Neck"></div>
+                            
+                            <!-- Left Shoulder -->
+                            <div class="body-part clickable-area" data-part="left-shoulder" onclick="selectBodyPart('left-shoulder')" 
+                                 style="position: absolute; top: 24%; left: 33%; width: 12%; height: 8%; cursor: pointer;" 
+                                 title="Left Shoulder"></div>
+                            
+                            <!-- Right Shoulder -->
+                            <div class="body-part clickable-area" data-part="right-shoulder" onclick="selectBodyPart('right-shoulder')" 
+                                 style="position: absolute; top: 24%; left: 55%; width: 12%; height: 8%; cursor: pointer;" 
+                                 title="Right Shoulder"></div>
+                            
+                            <!-- Left Upper Arm -->
+                            <div class="body-part clickable-area" data-part="left-upper-arm" onclick="selectBodyPart('left-upper-arm')" 
+                                 style="position: absolute; top: 32%; left: 28%; width: 8%; height: 15%; cursor: pointer;" 
+                                 title="Left Upper Arm"></div>
+                            
+                            <!-- Right Upper Arm -->
+                            <div class="body-part clickable-area" data-part="right-upper-arm" onclick="selectBodyPart('right-upper-arm')" 
+                                 style="position: absolute; top: 32%; left: 64%; width: 8%; height: 15%; cursor: pointer;" 
+                                 title="Right Upper Arm"></div>
+                            
                             <!-- Chest -->
-                            <g class="body-part" data-part="chest" onclick="selectBodyPart('chest')" style="opacity:0.9">
-                                <ellipse cx="150" cy="155" rx="65" ry="55" fill="url(#muscleGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <path d="M 115 130 Q 150 140 185 130" stroke="#d4a88c" stroke-width="2" fill="none" opacity="0.5"/>
-                                <line x1="150" y1="130" x2="150" y2="180" stroke="#d4a88c" stroke-width="2" opacity="0.4"/>
-                                <ellipse cx="130" cy="155" rx="15" ry="20" fill="none" stroke="#d4a88c" stroke-width="1.5" opacity="0.3"/>
-                                <ellipse cx="170" cy="155" rx="15" ry="20" fill="none" stroke="#d4a88c" stroke-width="1.5" opacity="0.3"/>
-                                <text x="150" y="218" text-anchor="middle" font-size="11" fill="#666" font-weight="500">Chest</text>
-                            </g>
-
-                            <!-- Abdomen -->
-                            <g class="body-part" data-part="abdomen" onclick="selectBodyPart('abdomen')" style="opacity:0.9">
-                                <ellipse cx="150" cy="235" rx="58" ry="48" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <rect x="130" y="215" width="40" height="15" rx="2" fill="none" stroke="#d4a88c" stroke-width="1" opacity="0.3"/>
-                                <rect x="130" y="232" width="40" height="15" rx="2" fill="none" stroke="#d4a88c" stroke-width="1" opacity="0.3"/>
-                                <rect x="130" y="249" width="40" height="15" rx="2" fill="none" stroke="#d4a88c" stroke-width="1" opacity="0.3"/>
-                                <circle cx="150" cy="240" r="8" fill="#d4a88c" opacity="0.2"/>
-                                <text x="150" y="295" text-anchor="middle" font-size="11" fill="#666" font-weight="500">Abdomen</text>
-                            </g>
-
-                            <!-- Left Arm -->
-                            <g class="body-part" data-part="left-arm" onclick="selectBodyPart('left-arm')" style="opacity:0.9">
-                                <path d="M 90 135 Q 88 175 92 210" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="20" stroke-linecap="round"/>
-                                <path d="M 88 145 Q 86 165 88 185" stroke="#d4a88c" stroke-width="3" fill="none" opacity="0.4"/>
-                                <circle cx="90" cy="135" r="14" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <text x="60" y="175" font-size="11" fill="#666" font-weight="500">L Arm</text>
-                            </g>
-
-                            <!-- Right Arm -->
-                            <g class="body-part" data-part="right-arm" onclick="selectBodyPart('right-arm')" style="opacity:0.9">
-                                <path d="M 210 135 Q 212 175 208 210" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="20" stroke-linecap="round"/>
-                                <path d="M 212 145 Q 214 165 212 185" stroke="#d4a88c" stroke-width="3" fill="none" opacity="0.4"/>
-                                <circle cx="210" cy="135" r="14" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <text x="225" y="175" font-size="11" fill="#666" font-weight="500">R Arm</text>
-                            </g>
-
-                            <!-- Left Hand -->
-                            <g class="body-part" data-part="left-hand" onclick="selectBodyPart('left-hand')" style="opacity:0.9">
-                                <ellipse cx="92" cy="210" rx="10" ry="12" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <path d="M 92 222 L 88 250" stroke="#c99b7a" stroke-width="16" stroke-linecap="round" fill="url(#skinGradient)"/>
-                                <ellipse cx="88" cy="255" rx="13" ry="16" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <path d="M 82 255 L 78 268" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 85 255 L 83 270" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 88 256 L 88 272" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 91 255 L 93 270" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 94 254 L 98 266" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <text x="60" y="240" font-size="11" fill="#666" font-weight="500">L Hand</text>
-                            </g>
-
-                            <!-- Right Hand -->
-                            <g class="body-part" data-part="right-hand" onclick="selectBodyPart('right-hand')" style="opacity:0.9">
-                                <ellipse cx="208" cy="210" rx="10" ry="12" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <path d="M 208 222 L 212 250" stroke="#c99b7a" stroke-width="16" stroke-linecap="round" fill="url(#skinGradient)"/>
-                                <ellipse cx="212" cy="255" rx="13" ry="16" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <path d="M 218 255 L 222 268" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 215 255 L 217 270" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 212 256 L 212 272" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 209 255 L 207 270" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M 206 254 L 202 266" stroke="#c99b7a" stroke-width="3" stroke-linecap="round"/>
-                                <text x="220" y="240" font-size="11" fill="#666" font-weight="500">R Hand</text>
-                            </g>
-
+                            <div class="body-part clickable-area" data-part="chest" onclick="selectBodyPart('chest')" 
+                                 style="position: absolute; top: 26%; left: 40%; width: 20%; height: 18%; cursor: pointer;" 
+                                 title="Chest"></div>
+                            
+                            <!-- Left Elbow -->
+                            <div class="body-part clickable-area" data-part="left-elbow" onclick="selectBodyPart('left-elbow')" 
+                                 style="position: absolute; top: 47%; left: 26%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Left Elbow"></div>
+                            
+                            <!-- Right Elbow -->
+                            <div class="body-part clickable-area" data-part="right-elbow" onclick="selectBodyPart('right-elbow')" 
+                                 style="position: absolute; top: 47%; left: 68%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Right Elbow"></div>
+                            
+                            <!-- Upper Abdomen -->
+                            <div class="body-part clickable-area" data-part="upper-abdomen" onclick="selectBodyPart('upper-abdomen')" 
+                                 style="position: absolute; top: 44%; left: 42%; width: 16%; height: 10%; cursor: pointer;" 
+                                 title="Upper Abdomen"></div>
+                            
+                            <!-- Left Forearm -->
+                            <div class="body-part clickable-area" data-part="left-forearm" onclick="selectBodyPart('left-forearm')" 
+                                 style="position: absolute; top: 53%; left: 24%; width: 8%; height: 15%; cursor: pointer;" 
+                                 title="Left Forearm"></div>
+                            
+                            <!-- Right Forearm -->
+                            <div class="body-part clickable-area" data-part="right-forearm" onclick="selectBodyPart('right-forearm')" 
+                                 style="position: absolute; top: 53%; left: 68%; width: 8%; height: 15%; cursor: pointer;" 
+                                 title="Right Forearm"></div>
+                            
+                            <!-- Lower Abdomen -->
+                            <div class="body-part clickable-area" data-part="lower-abdomen" onclick="selectBodyPart('lower-abdomen')" 
+                                 style="position: absolute; top: 54%; left: 42%; width: 16%; height: 8%; cursor: pointer;" 
+                                 title="Lower Abdomen"></div>
+                            
                             <!-- Pelvis -->
-                            <path d="M 110 280 L 105 300 L 195 300 L 190 280 Z" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5" opacity="0.9"/>
-
-                            <!-- Left Leg -->
-                            <g class="body-part" data-part="left-leg" onclick="selectBodyPart('left-leg')" style="opacity:0.9">
-                                <path d="M 120 300 Q 118 360 122 430" fill="url(#muscleGradient)" stroke="#c99b7a" stroke-width="24" stroke-linecap="round"/>
-                                <ellipse cx="120" cy="305" rx="14" ry="12" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <path d="M 116 320 Q 114 360 116 400" stroke="#d4a88c" stroke-width="3" fill="none" opacity="0.4"/>
-                                <ellipse cx="122" cy="360" rx="10" ry="14" fill="none" stroke="#d4a88c" stroke-width="1.5" opacity="0.3"/>
-                                <text x="90" y="370" font-size="11" fill="#666" font-weight="500">L Leg</text>
-                            </g>
-
-                            <!-- Right Leg -->
-                            <g class="body-part" data-part="right-leg" onclick="selectBodyPart('right-leg')" style="opacity:0.9">
-                                <path d="M 180 300 Q 182 360 178 430" fill="url(#muscleGradient)" stroke="#c99b7a" stroke-width="24" stroke-linecap="round"/>
-                                <ellipse cx="180" cy="305" rx="14" ry="12" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <path d="M 184 320 Q 186 360 184 400" stroke="#d4a88c" stroke-width="3" fill="none" opacity="0.4"/>
-                                <ellipse cx="178" cy="360" rx="10" ry="14" fill="none" stroke="#d4a88c" stroke-width="1.5" opacity="0.3"/>
-                                <text x="195" y="370" font-size="11" fill="#666" font-weight="500">R Leg</text>
-                            </g>
-
+                            <div class="body-part clickable-area" data-part="pelvis" onclick="selectBodyPart('pelvis')" 
+                                 style="position: absolute; top: 62%; left: 42%; width: 16%; height: 8%; cursor: pointer;" 
+                                 title="Pelvis"></div>
+                            
+                            <!-- Left Wrist -->
+                            <div class="body-part clickable-area" data-part="left-wrist" onclick="selectBodyPart('left-wrist')" 
+                                 style="position: absolute; top: 68%; left: 22%; width: 6%; height: 4%; cursor: pointer;" 
+                                 title="Left Wrist"></div>
+                            
+                            <!-- Right Wrist -->
+                            <div class="body-part clickable-area" data-part="right-wrist" onclick="selectBodyPart('right-wrist')" 
+                                 style="position: absolute; top: 68%; left: 72%; width: 6%; height: 4%; cursor: pointer;" 
+                                 title="Right Wrist"></div>
+                            
+                            <!-- Left Hand -->
+                            <div class="body-part clickable-area" data-part="left-hand" onclick="selectBodyPart('left-hand')" 
+                                 style="position: absolute; top: 72%; left: 20%; width: 8%; height: 8%; cursor: pointer;" 
+                                 title="Left Hand"></div>
+                            
+                            <!-- Right Hand -->
+                            <div class="body-part clickable-area" data-part="right-hand" onclick="selectBodyPart('right-hand')" 
+                                 style="position: absolute; top: 72%; left: 72%; width: 8%; height: 8%; cursor: pointer;" 
+                                 title="Right Hand"></div>
+                            
+                            <!-- Left Hip -->
+                            <div class="body-part clickable-area" data-part="left-hip" onclick="selectBodyPart('left-hip')" 
+                                 style="position: absolute; top: 70%; left: 38%; width: 8%; height: 6%; cursor: pointer;" 
+                                 title="Left Hip"></div>
+                            
+                            <!-- Right Hip -->
+                            <div class="body-part clickable-area" data-part="right-hip" onclick="selectBodyPart('right-hip')" 
+                                 style="position: absolute; top: 70%; left: 54%; width: 8%; height: 6%; cursor: pointer;" 
+                                 title="Right Hip"></div>
+                            
+                            <!-- Left Thigh -->
+                            <div class="body-part clickable-area" data-part="left-thigh" onclick="selectBodyPart('left-thigh')" 
+                                 style="position: absolute; top: 76%; left: 38%; width: 10%; height: 18%; cursor: pointer;" 
+                                 title="Left Thigh"></div>
+                            
+                            <!-- Right Thigh -->
+                            <div class="body-part clickable-area" data-part="right-thigh" onclick="selectBodyPart('right-thigh')" 
+                                 style="position: absolute; top: 76%; left: 52%; width: 10%; height: 18%; cursor: pointer;" 
+                                 title="Right Thigh"></div>
+                            
+                            <!-- Left Knee -->
+                            <div class="body-part clickable-area" data-part="left-knee" onclick="selectBodyPart('left-knee')" 
+                                 style="position: absolute; top: 94%; left: 40%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Left Knee"></div>
+                            
+                            <!-- Right Knee -->
+                            <div class="body-part clickable-area" data-part="right-knee" onclick="selectBodyPart('right-knee')" 
+                                 style="position: absolute; top: 94%; left: 54%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Right Knee"></div>
+                            
+                            <!-- More specific head areas -->
+                            <!-- Forehead -->
+                            <div class="body-part clickable-area" data-part="forehead" onclick="selectBodyPart('forehead')" 
+                                 style="position: absolute; top: 8%; left: 44%; width: 12%; height: 6%; cursor: pointer;" 
+                                 title="Forehead"></div>
+                            
+                            <!-- Left Eye -->
+                            <div class="body-part clickable-area" data-part="left-eye" onclick="selectBodyPart('left-eye')" 
+                                 style="position: absolute; top: 12%; left: 44%; width: 4%; height: 3%; cursor: pointer;" 
+                                 title="Left Eye"></div>
+                            
+                            <!-- Right Eye -->
+                            <div class="body-part clickable-area" data-part="right-eye" onclick="selectBodyPart('right-eye')" 
+                                 style="position: absolute; top: 12%; left: 52%; width: 4%; height: 3%; cursor: pointer;" 
+                                 title="Right Eye"></div>
+                            
+                            <!-- Nose -->
+                            <div class="body-part clickable-area" data-part="nose" onclick="selectBodyPart('nose')" 
+                                 style="position: absolute; top: 14%; left: 47%; width: 6%; height: 4%; cursor: pointer;" 
+                                 title="Nose"></div>
+                            
+                            <!-- Mouth -->
+                            <div class="body-part clickable-area" data-part="mouth" onclick="selectBodyPart('mouth')" 
+                                 style="position: absolute; top: 17%; left: 46%; width: 8%; height: 3%; cursor: pointer;" 
+                                 title="Mouth"></div>
+                            
+                            <!-- Left Ear -->
+                            <div class="body-part clickable-area" data-part="left-ear" onclick="selectBodyPart('left-ear')" 
+                                 style="position: absolute; top: 12%; left: 38%; width: 4%; height: 6%; cursor: pointer;" 
+                                 title="Left Ear"></div>
+                            
+                            <!-- Right Ear -->
+                            <div class="body-part clickable-area" data-part="right-ear" onclick="selectBodyPart('right-ear')" 
+                                 style="position: absolute; top: 12%; left: 58%; width: 4%; height: 6%; cursor: pointer;" 
+                                 title="Right Ear"></div>
+                            
+                            <!-- Left Shin -->
+                            <div class="body-part clickable-area" data-part="left-shin" onclick="selectBodyPart('left-shin')" 
+                                 style="position: absolute; top: 100%; left: 38%; width: 8%; height: 16%; cursor: pointer;" 
+                                 title="Left Shin"></div>
+                            
+                            <!-- Right Shin -->
+                            <div class="body-part clickable-area" data-part="right-shin" onclick="selectBodyPart('right-shin')" 
+                                 style="position: absolute; top: 100%; left: 54%; width: 8%; height: 16%; cursor: pointer;" 
+                                 title="Right Shin"></div>
+                            
+                            <!-- Left Calf -->
+                            <div class="body-part clickable-area" data-part="left-calf" onclick="selectBodyPart('left-calf')" 
+                                 style="position: absolute; top: 100%; left: 36%; width: 6%; height: 16%; cursor: pointer;" 
+                                 title="Left Calf"></div>
+                            
+                            <!-- Right Calf -->
+                            <div class="body-part clickable-area" data-part="right-calf" onclick="selectBodyPart('right-calf')" 
+                                 style="position: absolute; top: 100%; left: 58%; width: 6%; height: 16%; cursor: pointer;" 
+                                 title="Right Calf"></div>
+                            
+                            <!-- Left Ankle -->
+                            <div class="body-part clickable-area" data-part="left-ankle" onclick="selectBodyPart('left-ankle')" 
+                                 style="position: absolute; top: 116%; left: 38%; width: 6%; height: 4%; cursor: pointer;" 
+                                 title="Left Ankle"></div>
+                            
+                            <!-- Right Ankle -->
+                            <div class="body-part clickable-area" data-part="right-ankle" onclick="selectBodyPart('right-ankle')" 
+                                 style="position: absolute; top: 116%; left: 56%; width: 6%; height: 4%; cursor: pointer;" 
+                                 title="Right Ankle"></div>
+                            
                             <!-- Left Foot -->
-                            <g class="body-part" data-part="left-foot" onclick="selectBodyPart('left-foot')" style="opacity:0.9">
-                                <ellipse cx="122" cy="430" rx="11" ry="13" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <ellipse cx="120" cy="455" rx="22" ry="16" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <line x1="108" y1="455" x2="100" y2="465" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="114" y1="456" x2="108" y2="468" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="120" y1="457" x2="116" y2="470" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="126" y1="456" x2="124" y2="469" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="132" y1="455" x2="132" y2="466" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <text x="85" y="475" font-size="11" fill="#666" font-weight="500">L Foot</text>
-                            </g>
-
+                            <div class="body-part clickable-area" data-part="left-foot" onclick="selectBodyPart('left-foot')" 
+                                 style="position: absolute; top: 120%; left: 36%; width: 8%; height: 6%; cursor: pointer;" 
+                                 title="Left Foot"></div>
+                            
                             <!-- Right Foot -->
-                            <g class="body-part" data-part="right-foot" onclick="selectBodyPart('right-foot')" style="opacity:0.9">
-                                <ellipse cx="178" cy="430" rx="11" ry="13" fill="url(#jointGradient)" stroke="#c99b7a" stroke-width="1"/>
-                                <ellipse cx="180" cy="455" rx="22" ry="16" fill="url(#skinGradient)" stroke="#c99b7a" stroke-width="1.5"/>
-                                <line x1="192" y1="455" x2="200" y2="465" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="186" y1="456" x2="192" y2="468" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="180" y1="457" x2="184" y2="470" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="174" y1="456" x2="176" y2="469" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <line x1="168" y1="455" x2="168" y2="466" stroke="#c99b7a" stroke-width="2.5" stroke-linecap="round"/>
-                                <text x="195" y="475" font-size="11" fill="#666" font-weight="500">R Foot</text>
-                            </g>
-
-                            <!-- Back/Spine -->
-                            <g class="body-part" data-part="back" onclick="selectBodyPart('back')" style="opacity:0.9">
-                                <line x1="150" y1="120" x2="150" y2="280" stroke="#a88b75" stroke-width="4" opacity="0.6"/>
-                                <circle cx="150" cy="140" r="4" fill="#a88b75" opacity="0.5"/>
-                                <circle cx="150" cy="160" r="4" fill="#a88b75" opacity="0.5"/>
-                                <circle cx="150" cy="180" r="4" fill="#a88b75" opacity="0.5"/>
-                                <circle cx="150" cy="200" r="4" fill="#a88b75" opacity="0.5"/>
-                                <circle cx="150" cy="220" r="4" fill="#a88b75" opacity="0.5"/>
-                                <circle cx="150" cy="240" r="4" fill="#a88b75" opacity="0.5"/>
-                                <circle cx="150" cy="260" r="4" fill="#a88b75" opacity="0.5"/>
-                                <text x="150" y="300" text-anchor="middle" font-size="11" fill="#666" font-weight="500">Back/Spine</text>
-                            </g>
-                        </svg>
+                            <div class="body-part clickable-area" data-part="right-foot" onclick="selectBodyPart('right-foot')" 
+                                 style="position: absolute; top: 120%; left: 56%; width: 8%; height: 6%; cursor: pointer;" 
+                                 title="Right Foot"></div>
+                            
+                            <!-- More specific torso areas -->
+                            <!-- Heart Area -->
+                            <div class="body-part clickable-area" data-part="heart" onclick="selectBodyPart('heart')" 
+                                 style="position: absolute; top: 30%; left: 44%; width: 8%; height: 8%; cursor: pointer;" 
+                                 title="Heart Area"></div>
+                            
+                            <!-- Left Lung -->
+                            <div class="body-part clickable-area" data-part="left-lung" onclick="selectBodyPart('left-lung')" 
+                                 style="position: absolute; top: 28%; left: 36%; width: 10%; height: 12%; cursor: pointer;" 
+                                 title="Left Lung"></div>
+                            
+                            <!-- Right Lung -->
+                            <div class="body-part clickable-area" data-part="right-lung" onclick="selectBodyPart('right-lung')" 
+                                 style="position: absolute; top: 28%; left: 54%; width: 10%; height: 12%; cursor: pointer;" 
+                                 title="Right Lung"></div>
+                            
+                            <!-- Stomach -->
+                            <div class="body-part clickable-area" data-part="stomach" onclick="selectBodyPart('stomach')" 
+                                 style="position: absolute; top: 46%; left: 40%; width: 12%; height: 8%; cursor: pointer;" 
+                                 title="Stomach"></div>
+                            
+                            <!-- Liver -->
+                            <div class="body-part clickable-area" data-part="liver" onclick="selectBodyPart('liver')" 
+                                 style="position: absolute; top: 44%; left: 48%; width: 10%; height: 8%; cursor: pointer;" 
+                                 title="Liver"></div>
+                            
+                            <!-- Left Kidney -->
+                            <div class="body-part clickable-area" data-part="left-kidney" onclick="selectBodyPart('left-kidney')" 
+                                 style="position: absolute; top: 50%; left: 40%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Left Kidney"></div>
+                            
+                            <!-- Right Kidney -->
+                            <div class="body-part clickable-area" data-part="right-kidney" onclick="selectBodyPart('right-kidney')" 
+                                 style="position: absolute; top: 50%; left: 54%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Right Kidney"></div>
+                            
+                            <!-- Bladder -->
+                            <div class="body-part clickable-area" data-part="bladder" onclick="selectBodyPart('bladder')" 
+                                 style="position: absolute; top: 58%; left: 46%; width: 8%; height: 6%; cursor: pointer;" 
+                                 title="Bladder"></div>
+                            
+                            <!-- More specific finger areas -->
+                            <!-- Left Thumb -->
+                            <div class="body-part clickable-area" data-part="left-thumb" onclick="selectBodyPart('left-thumb')" 
+                                 style="position: absolute; top: 74%; left: 18%; width: 3%; height: 4%; cursor: pointer;" 
+                                 title="Left Thumb"></div>
+                            
+                            <!-- Left Fingers -->
+                            <div class="body-part clickable-area" data-part="left-fingers" onclick="selectBodyPart('left-fingers')" 
+                                 style="position: absolute; top: 76%; left: 21%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Left Fingers"></div>
+                            
+                            <!-- Right Thumb -->
+                            <div class="body-part clickable-area" data-part="right-thumb" onclick="selectBodyPart('right-thumb')" 
+                                 style="position: absolute; top: 74%; left: 79%; width: 3%; height: 4%; cursor: pointer;" 
+                                 title="Right Thumb"></div>
+                            
+                            <!-- Right Fingers -->
+                            <div class="body-part clickable-area" data-part="right-fingers" onclick="selectBodyPart('right-fingers')" 
+                                 style="position: absolute; top: 76%; left: 73%; width: 6%; height: 6%; cursor: pointer;" 
+                                 title="Right Fingers"></div>
+                        </div>
                     </div>
-                    <p style="text-align: center; color: #666; margin-top: 10px;">Click on body areas to select • Anatomically detailed diagram</p>
+                    <p style="text-align: center; color: #666; margin-top: 10px;">Click on specific body areas to select • 40+ detailed anatomical regions • Symptom options will appear based on your selection</p>
                 </div>
 
                 <div class="card">
@@ -489,20 +673,7 @@
                     <div class="form-group">
                         <label>Symptom/Condition</label>
                         <select id="symptomType">
-                            <option value="">Select symptom...</option>
-                            <option value="pain">Pain</option>
-                            <option value="swelling">Swelling</option>
-                            <option value="redness">Redness/Inflammation</option>
-                            <option value="numbness">Numbness/Tingling</option>
-                            <option value="weakness">Weakness</option>
-                            <option value="stiffness">Stiffness</option>
-                            <option value="rash">Rash/Skin Issue</option>
-                            <option value="breathing">Breathing Difficulty</option>
-                            <option value="dizziness">Dizziness</option>
-                            <option value="nausea">Nausea</option>
-                            <option value="fever">Fever</option>
-                            <option value="fatigue">Fatigue</option>
-                            <option value="other">Other</option>
+                            <option value="">Select a body area first to see relevant symptoms</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -521,6 +692,10 @@
                     <div class="form-group">
                         <label>Severity (1-10)</label>
                         <input type="number" id="severity" min="1" max="10" placeholder="1 (mild) to 10 (severe)">
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Details (Optional)</label>
+                        <textarea id="symptomDetails" placeholder="Describe any additional details about the symptom (e.g., triggers, what makes it better/worse, associated symptoms)" rows="3"></textarea>
                     </div>
                     <button class="btn btn-primary" onclick="addSymptom()">Add Symptom</button>
                 </div>
@@ -572,6 +747,241 @@
         let currentSymptoms = [];
         let selectedBodyPart = null;
 
+        // Comprehensive symptom-to-body-part mapping
+        const bodyPartSymptoms = {
+            // Head/Face areas
+            'head': ['sharp-pain', 'dull-ache', 'throbbing-pain', 'pressure-headache', 'migraine', 'tension-headache', 'dizziness', 'confusion', 'memory-issues'],
+            'forehead': ['throbbing-pain', 'pressure-headache', 'migraine', 'tension-headache', 'sinus-pressure'],
+            'left-eye': ['sharp-pain', 'dull-ache', 'vision-blurred', 'vision-double', 'eye-discharge', 'dry-eyes', 'redness', 'itching', 'light-sensitivity'],
+            'right-eye': ['sharp-pain', 'dull-ache', 'vision-blurred', 'vision-double', 'eye-discharge', 'dry-eyes', 'redness', 'itching', 'light-sensitivity'],
+            'left-ear': ['sharp-pain', 'dull-ache', 'hearing-loss', 'ear-discharge', 'tinnitus', 'dizziness', 'itching'],
+            'right-ear': ['sharp-pain', 'dull-ache', 'hearing-loss', 'ear-discharge', 'tinnitus', 'dizziness', 'itching'],
+            'nose': ['congestion', 'runny-nose', 'nosebleed', 'loss-of-smell', 'sinus-pressure', 'nasal-discharge'],
+            'mouth': ['dry-mouth', 'mouth-sores', 'bad-breath', 'taste-changes', 'difficulty-swallowing', 'jaw-pain'],
+            'neck': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'swollen-lymph-nodes', 'difficulty-swallowing'],
+
+            // Upper body
+            'left-shoulder': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'weakness', 'clicking-popping', 'instability'],
+            'right-shoulder': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'weakness', 'clicking-popping', 'instability'],
+            'left-upper-arm': ['sharp-pain', 'dull-ache', 'weakness', 'numbness', 'tingling', 'muscle-spasms', 'bruising'],
+            'right-upper-arm': ['sharp-pain', 'dull-ache', 'weakness', 'numbness', 'tingling', 'muscle-spasms', 'bruising'],
+            'left-elbow': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'clicking-popping', 'weakness', 'tingling'],
+            'right-elbow': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'clicking-popping', 'weakness', 'tingling'],
+            'left-forearm': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'weakness', 'muscle-spasms'],
+            'right-forearm': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'weakness', 'muscle-spasms'],
+            'left-wrist': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'numbness', 'tingling', 'weakness', 'clicking-popping'],
+            'right-wrist': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'numbness', 'tingling', 'weakness', 'clicking-popping'],
+            'left-hand': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'weakness', 'mild-swelling', 'skin-discoloration'],
+            'right-hand': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'weakness', 'mild-swelling', 'skin-discoloration'],
+            'left-thumb': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'weakness'],
+            'right-thumb': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'weakness'],
+            'left-fingers': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'weakness', 'joint-locking'],
+            'right-fingers': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'weakness', 'joint-locking'],
+
+            // Torso
+            'chest': ['sharp-pain', 'dull-ache', 'chest-tightness', 'shortness-of-breath', 'rapid-heartbeat', 'chest-pressure'],
+            'heart': ['chest-pain', 'chest-tightness', 'rapid-heartbeat', 'irregular-heartbeat', 'shortness-of-breath', 'fatigue', 'dizziness'],
+            'left-lung': ['shortness-of-breath', 'chest-pain', 'cough-dry', 'cough-productive', 'wheezing', 'chest-tightness'],
+            'right-lung': ['shortness-of-breath', 'chest-pain', 'cough-dry', 'cough-productive', 'wheezing', 'chest-tightness'],
+            'upper-abdomen': ['sharp-pain', 'dull-ache', 'burning-pain', 'cramping-pain', 'nausea', 'bloating', 'heartburn'],
+            'lower-abdomen': ['sharp-pain', 'dull-ache', 'cramping-pain', 'bloating', 'nausea', 'diarrhea', 'constipation'],
+            'stomach': ['nausea', 'vomiting', 'burning-pain', 'cramping-pain', 'bloating', 'heartburn', 'loss-of-appetite'],
+            'liver': ['dull-ache', 'sharp-pain', 'nausea', 'fatigue', 'skin-discoloration', 'bloating'],
+            'left-kidney': ['dull-ache', 'sharp-pain', 'burning-pain', 'frequent-urination', 'blood-in-urine', 'nausea'],
+            'right-kidney': ['dull-ache', 'sharp-pain', 'burning-pain', 'frequent-urination', 'blood-in-urine', 'nausea'],
+            'bladder': ['burning-pain', 'frequent-urination', 'urgent-urination', 'blood-in-urine', 'pelvic-pain'],
+            'pelvis': ['sharp-pain', 'dull-ache', 'cramping-pain', 'pelvic-pressure', 'frequent-urination'],
+
+            // Lower body
+            'left-hip': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'weakness', 'clicking-popping', 'instability'],
+            'right-hip': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'weakness', 'clicking-popping', 'instability'],
+            'left-thigh': ['sharp-pain', 'dull-ache', 'muscle-spasms', 'numbness', 'tingling', 'weakness', 'bruising'],
+            'right-thigh': ['sharp-pain', 'dull-ache', 'muscle-spasms', 'numbness', 'tingling', 'weakness', 'bruising'],
+            'left-knee': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'mild-swelling', 'clicking-popping', 'instability', 'joint-locking'],
+            'right-knee': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'mild-swelling', 'clicking-popping', 'instability', 'joint-locking'],
+            'left-shin': ['sharp-pain', 'dull-ache', 'muscle-spasms', 'numbness', 'tingling'],
+            'right-shin': ['sharp-pain', 'dull-ache', 'muscle-spasms', 'numbness', 'tingling'],
+            'left-calf': ['sharp-pain', 'dull-ache', 'muscle-spasms', 'cramping-pain', 'mild-swelling', 'numbness'],
+            'right-calf': ['sharp-pain', 'dull-ache', 'muscle-spasms', 'cramping-pain', 'mild-swelling', 'numbness'],
+            'left-ankle': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'mild-swelling', 'instability', 'clicking-popping'],
+            'right-ankle': ['sharp-pain', 'dull-ache', 'stiffness', 'limited-range', 'mild-swelling', 'instability', 'clicking-popping'],
+            'left-foot': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'mild-swelling', 'skin-discoloration'],
+            'right-foot': ['sharp-pain', 'dull-ache', 'numbness', 'tingling', 'stiffness', 'mild-swelling', 'skin-discoloration']
+        };
+
+        // Extended symptom definitions for new medical-specific symptoms
+        const allSymptoms = {
+            // Pain types
+            'sharp-pain': 'Sharp/Stabbing Pain',
+            'dull-ache': 'Dull Ache',
+            'throbbing-pain': 'Throbbing Pain',
+            'burning-pain': 'Burning Pain',
+            'cramping-pain': 'Cramping Pain',
+            'shooting-pain': 'Shooting Pain',
+            'pressure-headache': 'Pressure Headache',
+            'migraine': 'Migraine',
+            'tension-headache': 'Tension Headache',
+            'chest-pain': 'Chest Pain',
+            'pelvic-pain': 'Pelvic Pain',
+            'jaw-pain': 'Jaw Pain',
+
+            // Swelling & Inflammation
+            'mild-swelling': 'Mild Swelling',
+            'moderate-swelling': 'Moderate Swelling',
+            'severe-swelling': 'Severe Swelling',
+            'redness': 'Redness',
+            'warmth': 'Warmth/Heat',
+            'bruising': 'Bruising',
+
+            // Neurological
+            'numbness': 'Numbness',
+            'tingling': 'Tingling/Pins & Needles',
+            'weakness': 'Muscle Weakness',
+            'muscle-spasms': 'Muscle Spasms',
+            'tremor': 'Tremor/Shaking',
+            'loss-of-sensation': 'Loss of Sensation',
+            'confusion': 'Confusion',
+            'memory-issues': 'Memory Issues',
+
+            // Movement & Function
+            'stiffness': 'Stiffness',
+            'limited-range': 'Limited Range of Motion',
+            'joint-locking': 'Joint Locking',
+            'instability': 'Instability/Giving Way',
+            'clicking-popping': 'Clicking/Popping',
+            'grinding': 'Grinding Sensation',
+
+            // Vision & Hearing
+            'vision-blurred': 'Blurred Vision',
+            'vision-double': 'Double Vision',
+            'hearing-loss': 'Hearing Loss',
+            'tinnitus': 'Tinnitus/Ringing',
+            'light-sensitivity': 'Light Sensitivity',
+            'dry-eyes': 'Dry Eyes',
+
+            // Respiratory
+            'shortness-of-breath': 'Shortness of Breath',
+            'wheezing': 'Wheezing',
+            'chest-tightness': 'Chest Tightness',
+            'cough-dry': 'Dry Cough',
+            'cough-productive': 'Productive Cough',
+            'rapid-heartbeat': 'Rapid Heartbeat',
+            'irregular-heartbeat': 'Irregular Heartbeat',
+            'chest-pressure': 'Chest Pressure',
+
+            // Digestive & Urinary
+            'nausea': 'Nausea',
+            'vomiting': 'Vomiting',
+            'diarrhea': 'Diarrhea',
+            'constipation': 'Constipation',
+            'bloating': 'Bloating',
+            'heartburn': 'Heartburn',
+            'loss-of-appetite': 'Loss of Appetite',
+            'frequent-urination': 'Frequent Urination',
+            'urgent-urination': 'Urgent Urination',
+            'blood-in-urine': 'Blood in Urine',
+            'difficulty-swallowing': 'Difficulty Swallowing',
+
+            // Skin & Surface
+            'rash': 'Rash',
+            'itching': 'Itching',
+            'dry-skin': 'Dry Skin',
+            'skin-discoloration': 'Skin Discoloration',
+            'open-wound': 'Open Wound/Cut',
+            'blisters': 'Blisters',
+
+            // ENT specific
+            'congestion': 'Nasal Congestion',
+            'runny-nose': 'Runny Nose',
+            'nosebleed': 'Nosebleed',
+            'loss-of-smell': 'Loss of Smell',
+            'sinus-pressure': 'Sinus Pressure',
+            'nasal-discharge': 'Nasal Discharge',
+            'ear-discharge': 'Ear Discharge',
+            'dry-mouth': 'Dry Mouth',
+            'mouth-sores': 'Mouth Sores',
+            'bad-breath': 'Bad Breath',
+            'taste-changes': 'Taste Changes',
+            'swollen-lymph-nodes': 'Swollen Lymph Nodes',
+            'eye-discharge': 'Eye Discharge',
+            'pelvic-pressure': 'Pelvic Pressure',
+
+            // General
+            'fever': 'Fever',
+            'chills': 'Chills',
+            'fatigue': 'Fatigue',
+            'dizziness': 'Dizziness',
+            'headache': 'Headache',
+            'night-sweats': 'Night Sweats',
+
+            // Other
+            'discharge': 'Discharge',
+            'odor': 'Unusual Odor',
+            'temperature-change': 'Temperature Change',
+            'other': 'Other (describe in notes)'
+        };
+
+        // Simple markdown renderer for medical text
+        function renderMarkdown(text) {
+            if (!text) return '';
+            
+            // Split into lines first to process line-by-line
+            const lines = text.split('\n');
+            const processedLines = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i];
+                
+                // Process headers
+                if (line.match(/^##### /)) {
+                    line = line.replace(/^##### (.*)/, '<h5>$1</h5>');
+                } else if (line.match(/^#### /)) {
+                    line = line.replace(/^#### (.*)/, '<h4>$1</h4>');
+                } else if (line.match(/^### /)) {
+                    line = line.replace(/^### (.*)/, '<h3>$1</h3>');
+                } else if (line.match(/^## /)) {
+                    line = line.replace(/^## (.*)/, '<h2>$1</h2>');
+                } else if (line.match(/^# /)) {
+                    line = line.replace(/^# (.*)/, '<h1>$1</h1>');
+                }
+                
+                // Process bullet points
+                if (line.match(/^- /)) {
+                    line = line.replace(/^- (.*)/, '<li>$1</li>');
+                } else if (line.match(/^\d+\. /)) {
+                    line = line.replace(/^(\d+)\. (.*)/, '<li>$2</li>');
+                }
+                
+                // Process bold text
+                line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                processedLines.push(line);
+            }
+            
+            // Join lines back together
+            let result = processedLines.join('\n');
+            
+            // Group consecutive list items in <ul> tags
+            result = result.replace(/(<li>.*<\/li>\n?)+/g, function(match) {
+                const listItems = match.replace(/\n/g, '');
+                return '<ul>' + listItems + '</ul>\n';
+            });
+            
+            // Convert remaining newlines to <br>
+            result = result.replace(/\n/g, '<br>');
+            
+            // Clean up spacing around lists and headers
+            result = result.replace(/<br>\s*<ul>/g, '<ul>');
+            result = result.replace(/<\/ul>\s*<br>/g, '</ul>');
+            result = result.replace(/<br>\s*<h([1-6])>/g, '<h$1>');
+            result = result.replace(/<\/h([1-6])>\s*<br>/g, '</h$1><br>');
+            
+            // Remove excessive <br> tags
+            result = result.replace(/(<br>\s*){3,}/g, '<br><br>');
+            
+            return result;
+        }
+
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
@@ -587,14 +997,113 @@
         }
 
         function selectBodyPart(part) {
-            document.querySelectorAll('.body-part').forEach(p => {
-                p.style.filter = '';
-                p.style.opacity = '0.9';
+            // Remove selection from all clickable areas
+            document.querySelectorAll('.clickable-area').forEach(area => {
+                area.classList.remove('selected');
             });
-            event.currentTarget.style.filter = 'drop-shadow(0 0 12px rgb(99 102 241))';
-            event.currentTarget.style.opacity = '1';
+            
+            // Add selection to clicked area
+            event.currentTarget.classList.add('selected');
+            
             selectedBodyPart = part;
-            document.getElementById('selectedPart').value = part.replace(/-/g, ' ').toUpperCase();
+            
+            // Format the body part name for display
+            const formattedPart = part
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase());
+            
+            document.getElementById('selectedPart').value = formattedPart;
+            
+            // Update symptom dropdown based on selected body part
+            updateSymptomDropdown(part);
+        }
+
+        function updateSymptomDropdown(bodyPart) {
+            const symptomSelect = document.getElementById('symptomType');
+            const relevantSymptoms = bodyPartSymptoms[bodyPart] || [];
+            
+            // Clear existing options
+            symptomSelect.innerHTML = '<option value="">Select symptom...</option>';
+            
+            if (relevantSymptoms.length === 0) {
+                // If no specific symptoms mapped, show all symptoms
+                populateAllSymptoms();
+                return;
+            }
+            
+            // Group symptoms by category for better organization
+            const symptomCategories = {
+                'Pain': ['sharp-pain', 'dull-ache', 'throbbing-pain', 'burning-pain', 'cramping-pain', 'shooting-pain', 'pressure-headache', 'migraine', 'tension-headache', 'chest-pain', 'pelvic-pain', 'jaw-pain'],
+                'Neurological': ['numbness', 'tingling', 'weakness', 'muscle-spasms', 'tremor', 'loss-of-sensation', 'confusion', 'memory-issues'],
+                'Movement': ['stiffness', 'limited-range', 'joint-locking', 'instability', 'clicking-popping', 'grinding'],
+                'Swelling': ['mild-swelling', 'moderate-swelling', 'severe-swelling', 'redness', 'warmth', 'bruising'],
+                'Vision/Hearing': ['vision-blurred', 'vision-double', 'hearing-loss', 'tinnitus', 'light-sensitivity', 'dry-eyes', 'eye-discharge', 'ear-discharge'],
+                'Respiratory': ['shortness-of-breath', 'wheezing', 'chest-tightness', 'cough-dry', 'cough-productive', 'rapid-heartbeat', 'irregular-heartbeat', 'chest-pressure'],
+                'Digestive': ['nausea', 'vomiting', 'diarrhea', 'constipation', 'bloating', 'heartburn', 'loss-of-appetite', 'difficulty-swallowing'],
+                'Urinary': ['frequent-urination', 'urgent-urination', 'blood-in-urine', 'pelvic-pressure'],
+                'ENT': ['congestion', 'runny-nose', 'nosebleed', 'loss-of-smell', 'sinus-pressure', 'nasal-discharge', 'dry-mouth', 'mouth-sores', 'bad-breath', 'taste-changes', 'swollen-lymph-nodes'],
+                'Skin': ['rash', 'itching', 'dry-skin', 'skin-discoloration', 'open-wound', 'blisters'],
+                'General': ['fever', 'chills', 'fatigue', 'dizziness', 'headache', 'night-sweats', 'discharge', 'odor', 'temperature-change', 'other']
+            };
+            
+            // Add relevant symptoms grouped by category
+            Object.keys(symptomCategories).forEach(category => {
+                const categorySymptoms = symptomCategories[category].filter(symptom => 
+                    relevantSymptoms.includes(symptom)
+                );
+                
+                if (categorySymptoms.length > 0) {
+                    const optgroup = document.createElement('optgroup');
+                    optgroup.label = category;
+                    
+                    categorySymptoms.forEach(symptomKey => {
+                        const option = document.createElement('option');
+                        option.value = symptomKey;
+                        option.textContent = allSymptoms[symptomKey] || symptomKey;
+                        optgroup.appendChild(option);
+                    });
+                    
+                    symptomSelect.appendChild(optgroup);
+                }
+            });
+            
+            // Always add "Other" option at the end
+            if (!relevantSymptoms.includes('other')) {
+                const otherOption = document.createElement('option');
+                otherOption.value = 'other';
+                otherOption.textContent = 'Other (describe in notes)';
+                symptomSelect.appendChild(otherOption);
+            }
+        }
+
+        function populateAllSymptoms() {
+            const symptomSelect = document.getElementById('symptomType');
+            
+            const allCategories = {
+                'Pain Types': ['sharp-pain', 'dull-ache', 'throbbing-pain', 'burning-pain', 'cramping-pain', 'shooting-pain'],
+                'Swelling & Inflammation': ['mild-swelling', 'moderate-swelling', 'severe-swelling', 'redness', 'warmth', 'bruising'],
+                'Neurological': ['numbness', 'tingling', 'weakness', 'muscle-spasms', 'tremor', 'loss-of-sensation'],
+                'Movement & Function': ['stiffness', 'limited-range', 'joint-locking', 'instability', 'clicking-popping', 'grinding'],
+                'Skin & Surface': ['rash', 'itching', 'dry-skin', 'skin-discoloration', 'open-wound', 'blisters'],
+                'Respiratory': ['shortness-of-breath', 'wheezing', 'chest-tightness', 'cough-dry', 'cough-productive'],
+                'Digestive': ['nausea', 'vomiting', 'diarrhea', 'constipation', 'bloating'],
+                'General': ['fever', 'chills', 'fatigue', 'dizziness', 'headache', 'night-sweats'],
+                'Other': ['other']
+            };
+            
+            Object.keys(allCategories).forEach(category => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = category;
+                
+                allCategories[category].forEach(symptomKey => {
+                    const option = document.createElement('option');
+                    option.value = symptomKey;
+                    option.textContent = allSymptoms[symptomKey] || symptomKey;
+                    optgroup.appendChild(option);
+                });
+                
+                symptomSelect.appendChild(optgroup);
+            });
         }
 
         function addSymptom() {
@@ -609,13 +1118,16 @@
                 return;
             }
 
+            const symptomDetails = document.getElementById('symptomDetails').value;
+            
             const symptom = {
                 id: Date.now(),
                 patientName,
                 bodyPart,
                 symptomType,
                 duration,
-                severity: parseInt(severity)
+                severity: parseInt(severity),
+                details: symptomDetails || ''
             };
 
             currentSymptoms.push(symptom);
@@ -624,9 +1136,9 @@
             document.getElementById('symptomType').value = '';
             document.getElementById('duration').value = '';
             document.getElementById('severity').value = '';
-            document.querySelectorAll('.body-part').forEach(p => {
-                p.style.filter = '';
-                p.style.opacity = '0.9';
+            document.getElementById('symptomDetails').value = '';
+            document.querySelectorAll('.clickable-area').forEach(area => {
+                area.classList.remove('selected');
             });
             selectedBodyPart = null;
             document.getElementById('selectedPart').value = '';
@@ -649,23 +1161,31 @@
                 return;
             }
 
-            list.innerHTML = currentSymptoms.map(s => `
-                <div class="symptom-item">
-                    <button class="remove-btn" onclick="removeSymptom(${s.id})">Remove</button>
-                    <h4>${s.symptomType.toUpperCase()} - ${s.bodyPart.replace(/-/g, ' ').toUpperCase()}</h4>
-                    <p><strong>Duration:</strong> ${s.duration.replace(/-/g, ' ')}</p>
-                    <p><strong>Severity:</strong> ${s.severity}/10</p>
-                </div>
-            `).join('');
+            list.innerHTML = currentSymptoms.map(s => {
+                const formattedBodyPart = s.bodyPart.replace(/-/g, ' ').toUpperCase();
+                const formattedSymptom = s.symptomType.replace(/-/g, ' ').toUpperCase();
+                const formattedDuration = s.duration.replace(/-/g, ' ');
+                
+                return `
+                    <div class="symptom-item">
+                        <button class="remove-btn" onclick="removeSymptom(${s.id})">Remove</button>
+                        <h4>${formattedSymptom} - ${formattedBodyPart}</h4>
+                        <p><strong>Duration:</strong> ${formattedDuration}</p>
+                        <p><strong>Severity:</strong> ${s.severity}/10</p>
+                        ${s.details ? `<p><strong>Details:</strong> ${s.details}</p>` : ''}
+                    </div>
+                `;
+            }).join('');
         }
 
         async function submitToAI() {
             if (currentSymptoms.length === 0) return;
 
             const patientName = currentSymptoms[0].patientName;
-            const symptomsText = currentSymptoms.map(s => 
-                `- ${s.symptomType} in ${s.bodyPart.replace(/-/g, ' ')}, Duration: ${s.duration.replace(/-/g, ' ')}, Severity: ${s.severity}/10`
-            ).join('\n');
+            const symptomsText = currentSymptoms.map(s => {
+                const baseInfo = `- ${s.symptomType.replace(/-/g, ' ')} in ${s.bodyPart.replace(/-/g, ' ')}, Duration: ${s.duration.replace(/-/g, ' ')}, Severity: ${s.severity}/10`;
+                return s.details ? `${baseInfo}\n  Additional details: ${s.details}` : baseInfo;
+            }).join('\n');
 
             // Show loading state
             document.getElementById('submitBtn').disabled = true;
@@ -747,7 +1267,7 @@ Format your response clearly with headers and bullet points. Be professional and
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        model: 'qwen3:30b',
+                        model: 'llama3:latest',
                         prompt: prompt,
                         stream: false,
                         options: {
@@ -835,7 +1355,7 @@ ${symptomsText}
                     <div class="success">✓ Your symptoms have been analyzed and sent to a doctor for review.</div>
                     <div class="suggestion-box">
                         <h3>AI Preliminary Suggestion (Ollama qwen3:30b):</h3>
-                        <div style="white-space: pre-line;">${aiSuggestion}</div>
+                        <div class="markdown-content">${renderMarkdown(aiSuggestion)}</div>
                     </div>
                     <p style="margin-top: 15px;">
                         <strong>Status:</strong> <span class="status-badge status-pending">Pending Doctor Review</span>
@@ -878,7 +1398,7 @@ ${symptomsText}
                     
                     <div class="suggestion-box">
                         <h4>AI Suggestion:</h4>
-                        <div>${sub.aiSuggestion}</div>
+                        <div class="markdown-content">${renderMarkdown(sub.aiSuggestion)}</div>
                     </div>
 
                     <div class="form-group" style="margin-top: 15px;">
@@ -977,13 +1497,13 @@ ${symptomsText}
 
                     <div class="suggestion-box">
                         <h4>AI Initial Suggestion:</h4>
-                        <div>${record.aiSuggestion}</div>
+                        <div class="markdown-content">${renderMarkdown(record.aiSuggestion)}</div>
                     </div>
 
                     ${record.doctorNotes ? `
                         <div class="suggestion-box" style="background: #e8f5e9; border-color: #4caf50;">
                             <h4>Doctor's Assessment:</h4>
-                            <div>${record.doctorNotes}</div>
+                            <div class="markdown-content">${renderMarkdown(record.doctorNotes)}</div>
                         </div>
                     ` : ''}
 
@@ -1001,4 +1521,10 @@ ${symptomsText}
 
         // Initialize
         updateCounts();
+        
+        // Initialize symptom dropdown with placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial state - user must select body area first
+            document.getElementById('symptomType').innerHTML = '<option value="">Select a body area first to see relevant symptoms</option>';
+        });
     </script>
